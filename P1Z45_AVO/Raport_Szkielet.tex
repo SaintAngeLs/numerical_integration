@@ -1,0 +1,57 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[cp1250]{inputenc} % tu mo¿e byæ konieczne zast¹pienie "cp1250" przez np. "utf8"
+\usepackage{setspace}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{geometry}
+\geometry{hdivide={2cm,*,2cm}}
+\geometry{vdivide={2cm,*,2cm}}
+\usepackage{titlesec}
+\titlespacing{\section}{0ex}{1ex}{1ex} % zmniejszenie odstêpów przed i po tytule rozdzia³u...
+\titleformat*{\section}{\sf\large\bfseries} % i zmiana kroju czcionki
+\titlespacing{\subsection}{0ex}{0.75ex}{0.75ex} % % j/w dla tytu³ów podrozdzia³ów
+\titleformat*{\subsection}{\sf\bfseries}
+
+% Zmniejszenie odstêpów przed i za wzorami wystawionymi
+\AtBeginDocument{
+\addtolength{\abovedisplayskip}{-1ex}
+\addtolength{\abovedisplayshortskip}{-1ex}
+\addtolength{\belowdisplayskip}{-1ex}
+\addtolength{\belowdisplayshortskip}{-1ex}
+}
+% Kilka przydatnych definicji
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcommand{\razy}{\hspace{-0.5ex}\times\hspace{-0.5ex}} % mo¿e siê przydaæ
+
+
+\begin{document}
+
+\def\tablename{Tabela} % bez tej linii nazw¹ tabeli by³aby "Tablica"
+
+
+\noindent
+\textbf{Imiê Nazwisko, nr indeksu, grupa ?, projekt ?, zadanie ??}
+
+
+\section*{Wstêp} % section* oznacza rozdzia³ bez numeru (zasadne przy braku spisu treci)
+
+
+\section*{...}
+
+
+\section*{Eksperymenty numeryczne}
+
+
+\section*{Dodatek}
+
+
+\end{document}

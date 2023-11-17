@@ -1,0 +1,301 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[cp1250]{inputenc}
+\usepackage{setspace}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{geometry}
+\geometry{hdivide={2cm,*,2cm}}
+\geometry{vdivide={2cm,*,2cm}}
+\usepackage{titlesec}
+\titlespacing{\section}{0ex}{1ex}{1ex}
+\titleformat*{\section}{\sf\large\bfseries}
+\titlespacing{\subsection}{0ex}{0.75ex}{0.75ex}
+\titleformat*{\subsection}{\sf\bfseries}
+
+\AtBeginDocument{
+\addtolength{\abovedisplayskip}{-1ex}
+\addtolength{\abovedisplayshortskip}{-1ex}
+\addtolength{\belowdisplayskip}{-1ex}
+\addtolength{\belowdisplayshortskip}{-1ex}
+}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcommand{\razy}{\hspace{-0.5ex}\times\hspace{-0.5ex}}
+
+
+\begin{document}
+
+\def\tablename{Tabela} % bez tej linii nazw¹ tabeli by³aby "Tablica"
+
+
+\noindent
+\textbf{Pawe³ Keller, 999999, grupa 7, projekt 0, zadanie 00}
+
+
+\section*{Wstêp}
+Po krótkiej naradzie, razem z Wyk³adowc¹ zdecydowalimy siê udostêpniæ
+Pañstwu niemal ca³y przyk³adowy plik raportu. Jedynie \emph{Wstêp} podmieniony
+zosta³ na kilka informacji, które w³anie Pañstwo czytaj¹. Przypominam, ¿e wstêp
+powinien zawieraæ opisan¹ w³asnymi s³owami i w trybie oznajmuj¹cym treæ
+zadania oraz krótk¹ wzmiankê o rezultatach przeprowadzonych
+eksperymentów (taki raport ,,w pigu³ce'').
+
+Proszê zwróciæ równie¿ uwagê, ¿e w rozdziale opisuj¹cym dan¹ metodê numeryczn¹
+(proszê pamiêtaæ o odpowiedniej modyfikacji tytu³u tego rozdzia³u --- je¿eli kto
+odda raport z pozostawionym z tego przyk³adu tytu³em drugiego rozdzia³u,
+to odejmê za to 3 punkty!) wszystkie u¿ywane symbole i pojêcia s¹
+tam zdefiniowane. Innymi s³owy, nie wolno u¿ywaæ pojêæ lub symboli
+wczeniej niezdefiniowanych (najpóniej nale¿y definiowaæ symbol/pojêcie
+w zdaniu nastêpuj¹cym po tym, w którym jest u¿yty po raz pierwszy).
+Nie dotyczy to oczywicie pojêæ ogólnie znanych (np.\ \emph{ca³ka}).
+
+Rozszerzony zosta³ te¿ \emph{Dodatek} o dowody dwóch teoretycznych faktów.
+Nie jest to jednak przyk³ad jak \emph{Dodatek} (raport) koniecznie powinien wygl¹daæ,
+a jedynie drobne uzupe³nienie materia³u z poprzedniego semestru --- jeliby
+kogo to zainteresowa³o --- oraz kilka dodatkowych, przyk³adowych wzorów
+matematycznych. Dodano równie¿ bardzo wa¿n¹ \emph{Uwagê koñcow¹}.
+
+
+\section*{Opis metody Newtona}
+Za³ó¿my, ¿e $\alpha$ jest $r$-krotnym pierwiastkiem pewnej $r$-krotnie
+ró¿niczkowalnej funkcji $f$, czyli takim, ¿e
+$f(\alpha) = f'(\alpha) = \dots = f^{(r-1)}(\alpha)=0$
+oraz $f^{(r)}(\alpha) \neq 0$. Wtedy dla przybli¿enia pocz¹tkowego
+$x_0$ zmodyfikowana metoda Newtona wyznacza kolejne przybli¿enia $x_k$ ($k\geq 1$)
+pierwiastka $\alpha$ zgodnie z nastêpuj¹cym wzorem:
+\begin{equation}
+\label{NewtonFormula}
+  x_k = x_{k-1} - r \frac{f(x_{k-1})}{f'(x_{k-1})}.
+\end{equation}
+Je¿eli b³¹d $|e_0|$, gdzie $e_k = x_k - \alpha$ ($k \geq 0$), jest odpowiednio
+ma³y, to
+$$ % wzory bez numerów mo¿na te¿ uzyskaæ otoczeniem \begin{equation*}..\end{equation*}
+  |e_k| \leq C |e_{k-1}|^2 \qquad (k \geq 1)
+$$  
+dla pewnej sta³ej $C$. Oznacza to, ¿e wystarczy ju¿ kilka iteracji, aby przybli¿yæ
+pierwiastek $\alpha$ z kilkunastocyfrow¹ dok³adnoci¹.
+
+Poniewa¿ nie jest znana wystarczaj¹ca liczba iteracji potrzebna do wyznaczenia
+pierwiastka z pewn¹ zadan¹ dok³adnoci¹, w praktycznej realizacji metody Newtona
+u¿ytej do wykonania eksperymentów opisanych w raporcie, iteracje \eqref{NewtonFormula}
+wykonuje siê do momentu, a¿
+\begin{equation}
+\label{ErrEst}
+  E_k := |x_k - x_{k-1}| \leq \delta
+\end{equation}
+dla pewnej zadanej tolerancji $\delta > 0$. Dodatkowo, obliczenia s¹ przerywane,
+jeli wartoæ $k$ w~\eqref{NewtonFormula} robi siê nazbyt du¿a lub gdy $f(x_{k-1}) = 0$.
+Ten ostatni warunek jest konieczny, poniewa¿ w wypadku zer wielokrotnych mamy
+wtedy $f'(x_{k-1}) = 0$. W \emph{Dodatku} wykazano, ¿e w otoczeniu wielokrotnego
+pierwiastka zachodzi nierównoæ $|f(x_{k-1})| < |f'(x_{k-1})|$.
+
+
+\section*{Eksperymenty numeryczne}
+Zauwa¿my, ¿e gdy mamy obliczone trzy kolejne b³êdy przybli¿enia:
+$e_{k-1}$, $e_{k}$ i $e_{k+1}$, to mo¿emy ³atwo szacowaæ wyk³adnik zbie¿noci metody.
+Przyjmuj¹c, ¿e $|e_{k+1}| \simeq C |e_{k}|^p$ oraz $|e_k| \simeq C |e_{k-1}|^p$,
+to po zlogarytmowaniu powy¿szych dwóch przybli¿onych równoci i odjêciu stronami,
+dostaniemy
+$$
+  p \simeq \log\Big(\frac{|e_{k+1}|}{|e_k|}\Big)
+           \log\Big(\frac{|e_{k}|}{|e_{k-1}|}\Big)^{-1}.
+\vspace{1ex}
+$$
+W tabeli \ref{T1} przedstawiono wyniki obliczeñ dla kilku wybranych funkcji $f$ oraz
+kilku wartoci parametru $r$ w \eqref{NewtonFormula}. Podano oszacowan¹ wartoæ
+wyk³adnika zbie¿noci $p$ (albo symbol ''\verb;?;'', gdy nie by³o mo¿liwe jego
+oszacowanie --- kolejne trzy b³êdy nie mala³y lub nie by³y mniejsze ni¿ jeden).
+Podano te¿ wartoæ oszacowania \eqref{ErrEst} dla ostatniej ($k$-tej)
+iteracji oraz faktyczn¹ wartoæ b³êdu $|e_k|$.
+
+Jak widaæ, przy odpowiednio dobranej wartoci $r$ (równej krotnoci pierwiastka)
+otrzymujemy najszybsz¹ zbie¿noæ, co najmniej rzêdu $2$. W wypadku dwóch ostatnich
+przyk³adów z tabeli, przy optymalnym doborze parametru $r$, zbie¿noæ jest a¿ szecienna,
+co potwierdzono dowodem teoretycznym w \emph{Dodatku}. Na podstawie otrzymanych wyników widaæ
+równie¿, ¿e z³e dobranie parametru $r$ mo¿e skoñczyæ siê w ma³o interesuj¹cy sposób.
+Jeli nie znamy zatem krotnoci pierwiastka, to nale¿y przypisaæ $r:=1$.
+
+Interesuj¹cy wydaje siê ostatni przyk³ad z tabeli \ref{T1}, dla którego nie uda³o
+siê obliczyæ przybli¿enia pierwiastka z b³êdem mniejszym ni¿ $1.06\razy10^{-9}$ (algorytm
+,,utkn¹³'' w tym punkcie). Opisany problem jest prawdopodobnie konsekwencj¹ faktu,
+¿e obliczanie wartoci wyra¿enia $\cos(x) - 1$ dla argumentów bliskich $0$ obarczone
+jest bardzo du¿ym b³êdem zwi¹zanym ze spor¹ redukcj¹ cyfr znacz¹cych.
+
+\begin{table}[!h]\vspace*{-2ex}
+\caption{\footnotesize Oszacowana wartoæ wyk³adnika zbie¿noci $p$, oszacowanie $E_k$
+b³êdu przybli¿enia, faktyczny b³¹d $|e_k|$ oraz numer iteracji $k$, w której spe³niony
+by³ warunek $E_k < 10^{-12}$ dla kilku wybranych funkcji i kilku wartoci~$r$
+w \eqref{NewtonFormula}. Szukanym pierwiastkiem jest zawsze $\alpha = 0$,
+a przybli¿enie pocz¹tkowe jest równe $x_0 = 0.5$. Jeli w tabeli oszacowanie
+b³êdu jest równe $0.0$, oznacza to, ¿e tyle wynosi³a wartoæ $E_k$ lub
+$f(x_{k-1})=0$ --- taka realizacja (a nie sprawdzanie, czy $f(x_k)=0$)
+by³a prostsza w praktyce.}\vspace{-1.5ex}
+\label{T1} % to niezbyt ³adna nazwa etykiety :(
+\begin{center}
+\begin{small}
+\begin{tabular}{|C{20ex}|C{10ex}|C{10ex}|C{10ex}|C{10ex}|C{10ex}|}\hline
+funkcja $f$ & $r$ & $p$ & $E_k$ & $|e_k|$ & $k$\\\hline
+\multirow{3}{*}{$\exp(x)-1$}
+& $1$ & $2.00$ & $1.1\razy10^{-16}$ & $5.4\razy10^{-17}$ & 5 \\
+& $2$ & \verb;?; & --- & --- & $\infty$ \\
+& $3$ & \verb;?; & --- & --- & $\infty$ \\\hline
+\multirow{3}{*}{$(\exp(x)-1)^3$}
+& $1$ & $1.00$ & $8.7\razy10^{-13}$ & $1.8\razy10^{-13}$ & 66 \\
+& $2$ & $1.00$ & $7.9\razy10^{-13}$ & $3.9\razy10^{-13}$ & 26 \\
+& $3$ & $2.00$ & $0.0$ & $1.1\razy10^{-16}$ & 6 \\
+& $4$ & $1.00$ & $1.0\razy10^{-12}$ & $4.0\razy10^{-13}$ & 67 \\
+& $5$ & \verb;?; & --- & --- & $\infty$ \\\hline
+\multirow{2}{*}{$x^2(x-3)(x+1)$}
+& $1$ & $1.00$ & $5.5\razy10^{-13}$ & $5.5\razy10^{-13}$ & 40 \\
+& $2$ & $2.00$ & $3.2\razy10^{-16}$ & $0.0$ & 4 \\
+& $3$ & $1.00$ & $6.9\razy10^{-13}$ & $2.3\razy10^{-13}$ & 41 \\
+& $4$ & \verb;?; & --- & --- & $\infty$ \\\hline
+\multirow{1}{*}{$\sin(x)^2$}
+& $2$ & $3.00$ & $1.2\razy10^{-14}$ & $0.0$ & 4 \\\hline
+\multirow{1}{*}{$\cos(x)-1$}
+& $2$ & $3.01$ & $0.0$ & $1.1\razy10^{-9}$ & 4 \\\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{table}\vspace{-3ex}
+
+Na rysunku \ref{R1} przedstawiono graficznie przedzia³y zbie¿noci zmodyfikowanej
+metody Newtona dla funkcji $(x+1)^2(x-1)^2(x-2)^2(x-4)^2$ i $r\in\{1,2,3,4\}$.
+Jasne kolory oznaczaj¹ zbie¿noæ (dla danego punktu pocz¹tkowego) do jednego
+z czterech pierwiastków: $-1$, $1$, $2$ albo $4$. Otrzymane wyniki potwierdzaj¹
+tezê, ¿e czasem bardzo istotny jest odpowiedni dobór przybli¿enia pocz¹tkowego, oraz
+¿e z³e dobranie parametru $r$ mo¿e spowodowaæ brak zbie¿noci metody.
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=8.5cm,height=1cm,angle=0]{fun3-1.png}\hspace*{-4ex}
+\includegraphics[width=8.5cm,height=1cm,angle=0]{fun3-2.png}\\[1ex]
+\includegraphics[width=8.5cm,height=1cm,angle=0]{fun3-3.png}\hspace*{-4ex}
+\includegraphics[width=8.5cm,height=1cm,angle=0]{fun3-4.png}\vspace*{-4ex}
+\end{center}
+\caption{\footnotesize Przedzia³y zbie¿noci zmodyfikowanej metody Newtona dla funkcji
+$(x+1)^2(x-1)^2(x-2)^2(x-4)^2$. Kolorami czerwonym, zielonym, niebieskim oraz ¿ó³tym oznaczono
+przybli¿enia pocz¹tkowe, które ,,prowadz¹'' -- odpowiednio -- do pierwiastków
+$-1$, $1$, $2$ i $4$. Ciemny kolor oznacza brak zbie¿noci. Kolejne rysunki (od lewego
+górnego, wierszami) odpowiadaj¹ wartociom $1$, $2$, $3$ i $4$ parametru $r$
+(porównaj wzór \eqref{NewtonFormula}).}
+\label{R1}
+\end{figure}
+
+
+\section*{Dodatek}
+
+Przedstawione na rysunku \ref{R1} przedzia³y zbie¿noci doæ czytelnie pokazuj¹, jak
+dla wybranej funkcji $f$ zmiany parametru $r$ wp³ywaj¹ na zbie¿noæ zmodyfikowanej
+metody Newtona. Jednak od strony wizualnej mo¿na uznaæ te rysunki za ma³o ciekawe.
+
+O wiele ciekawsze (wizualnie) obrazy otrzymaæ mo¿na, gdy zastosuje siê metodê Newtona
+do wyznaczania pierwiastków funkcji zespolonej i odpowiednio pokoloruje obszary
+zbie¿noci metody. W dziedzinie zespolonej metoda Newtona nadal opisywana jest
+wzorem \eqref{NewtonFormula}.
+
+Na rysunku \ref{R2} przedstawiono obszary zbie¿noci zmodyfikowanej metody Newtona
+(z parametrem $r=2$) dla funkcji zespolonej
+\begin{equation}
+\label{FractFunct}
+  f(z) = \big(1 + \frac{1}{4}\sin(2z) - \frac{1}{4}\cos(2z)\big)
+         (z+1)^2(z-1)^2(z-2)^2(z-4)^2.
+\end{equation}
+Pierwiastkami tej funkcji s¹ liczby $-1$, $1$, $2$, $4$ i --- byæ mo¿e --- pewne
+inne liczby zespolone. Na rysunku \ref{R2} pokolorowano wy³¹cznie te punkty z wybranego
+prostok¹ta p³aszczyzny zespolonej, dla których metoda zbiega³a do jednego z czterech
+podanych pierwiastków rzeczywistych (istotne s¹ jedynie aspekty wizualne obrazków),
+pozosta³e punkty zaznaczono ciemno-szarym kolorem t³a.
+
+\begin{figure}[h!]
+\vspace*{-2ex}
+\begin{center}
+\includegraphics[width=8.5cm,height=6cm,angle=0]{fun2_2D2.png}\hspace*{-4ex}
+\includegraphics[width=8.5cm,height=6cm,angle=0]{fun2_2D2_zoom.png}\\[-1.5ex]
+\includegraphics[width=8.5cm,height=6cm,angle=0]{fun2_2D2_zoom_alt.png}\hspace*{-4ex}
+\includegraphics[width=8.5cm,height=6cm,angle=0]{fun2_2D2_zoom_zoom.png}\vspace*{-5ex}
+\end{center}
+\caption{\footnotesize Obszary zbie¿noci zmodyfikowanej ($r=2$) metody Newtona
+dla funkcji \eqref{FractFunct}. Kolorami czerwonym, zielonym, niebieskim oraz ¿ó³tym
+oznaczono przybli¿enia pocz¹tkowe, które ,,prowadz¹'' -- odpowiednio -- do pierwiastków
+$-1$, $1$, $2$ i $4$. Ciemny kolor oznacza brak zbie¿noci lub zbie¿noæ do innego
+pierwiastka. Kolejne rysunki odpowiadaj¹ ró¿nym rozwa¿anym obszarom.}
+\label{R2}
+\end{figure}
+
+\subsection*{Uzasadnienia kilku faktów teoretycznych}
+
+Na pocz¹tek poka¿emy, ¿e dla funkcji $f(x) = \sin(x)^2$ zmodyfikowana metoda Newtona
+\eqref{NewtonFormula} z $r = 2$ jest zbie¿na szeciennie do pierwiastka $\alpha = 0$,
+dla przybli¿enia pocz¹tkowego odpowiednio bliskiego $\alpha$. £atwo zauwa¿yæ,
+i¿ spe³nione s¹ równoci
+$$
+  e_{k+1} = e_k - 2 \frac{f(x_k)}{f'(x_k)}
+          = \frac{e_k f'(x_k) - 2 f(x_k)}{f'(x_k)}.
+$$
+Rozwijaj¹c $f(x_k)$ oraz $f'(x_k)$ w szereg Taylora oraz zauwa¿aj¹c, ¿e w rozwa¿anym
+przyk³adzie $x_k = e_k$ i $f(0) = f'(0) = 0$, otrzymujemy
+$$
+  e_{k+1} = \frac{e_k \big(e_k f''(0) + \frac{1}{2} e_k^2 f'''(0)
+                  + \frac{1}{6} e_k^3 f^{(4)}(\xi_0) \big)
+                  - 2 \big( \frac{1}{2}e_k^2 f''(0) + \frac{1}{6} e_k^3 f'''(0)
+                       + \frac{1}{24} e_k^4 f^{(4)}(\xi_1) \big)}
+                 {e_k f''(\xi_2)}.
+$$
+dla pewnych wartoci $\xi_0$, $\xi_1$ i $\xi_2$ le¿¹cych
+pomiêdzy zerem a $x_k$. Poniewa¿ dla $f(x) = \sin(x)^2$ mamy $f'''(0) = 0$,
+$f''(0) = 2$ oraz $f^{(4)}(0) = -8$, to jeli przybli¿enie $x_k$ jest dostatecznie
+bliskie~$0$, otrzymamy
+$$
+  |e_{k+1}| = \bigg|
+              \frac{\frac{1}{6} e_k^4 f^{(4)}(\xi_0) - \frac{1}{12} e_k^4 f^{(4)}(\xi_1)}
+                   {e_k f''(\xi_2)}
+              \bigg|
+            \simeq \frac{1}{3}|e_k|^3 .
+\vspace{1ex}
+$$
+
+W wypadku funkcji $f(x) = \cos(x) - 1$ dowód, ¿e zmodyfikowana metoda Newtona
+zbiega do pierwiastka $\alpha = 0$ z wyk³adnikiem zbie¿noci równym $3$ jest analogiczny.
+
+Na koniec uzasadnimy, ¿e w pewnym otoczeniu wielokrotnego zera $\alpha$ odpowiednio
+wiele razy ró¿niczkowalnej funkcji $f$ zachodzi warunek $|f(x)| < |f'(x)|$. W dowodzie
+za³o¿ymy dla uproszczenia, ¿e krotnoæ zera wynosi $2$. Dodatkowo wymagamy,
+aby $|f''(\alpha)| < \infty$. W takim wypadku dla $x$ bliskich $\alpha$, pamiêtaj¹c
+¿e $f(\alpha)=f'(\alpha)=0$, otrzymujemy
+$$
+  f(x) = f(\alpha) + (x-\alpha) f'(\alpha) + \frac{(x-\alpha)^2}{2} f''(\xi_0)
+       = \frac{(x-\alpha)^2}{2} f''(\xi_0)
+$$
+oraz
+$$
+  f'(x) = f'(\alpha) + (x-\alpha) f''(\xi_1) = (x-\alpha) f''(\xi_1)
+\vspace{0.5ex}
+$$
+dla pewnych $\xi_0$ oraz $\xi_1$ le¿¹cych pomiêdzy $\alpha$ i $x$. Poniewa¿
+$0\! <\! |f''(\alpha)|\! <\! \infty$, to dla $x$ odpowiednio bliskich $\alpha$ zachodzi
+$$
+  \frac{1}{2} \big| (x-\alpha)^2 f''(\xi_0) \big| <
+  \big| (x-\alpha) f''(\xi_1) \big|,
+$$
+co koñczy dowód.
+
+\medskip
+
+
+\section*{Uwaga koñcowa (bardzo wa¿na)}
+Absolutnie zabronione jest kopiowanie zdañ (sformu³owañ) z tego raportu.
+Niezastosowanie siê to powy¿szego zastrze¿enia mo¿e byæ potraktowane jako plagiat.
+Najbezpieczniej oprzeæ w³asny raport na do³¹czonym \emph{szkielecie raportu}, a ten plik
+traktowaæ jedynie jako wskazówki dotycz¹ce pisania tekstów w \LaTeX-u.
+
+
+\end{document}

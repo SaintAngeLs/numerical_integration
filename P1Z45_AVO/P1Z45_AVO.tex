@@ -1,0 +1,144 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{multicol}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % tu mo¿e byæ konieczne zast¹pienie "cp1250" przez np. "utf8"
+\usepackage{setspace}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{geometry}
+\geometry{hdivide={2cm,*,2cm}}
+\geometry{vdivide={2cm,*,2cm}}
+\usepackage{titlesec}
+\titlespacing{\section}{0ex}{1ex}{1ex} % zmniejszenie odstêpów przed i po tytule rozdzia³u...
+\titleformat*{\section}{\sf\large\bfseries} % i zmiana kroju czcionki
+\titlespacing{\subsection}{0ex}{0.75ex}{0.75ex} % % j/w dla tytu³ów podrozdzia³ów
+\titleformat*{\subsection}{\sf\bfseries}
+
+% Zmniejszenie odstêpów przed i za wzorami wystawionymi
+\AtBeginDocument{
+\addtolength{\abovedisplayskip}{-1ex}
+\addtolength{\abovedisplayshortskip}{-1ex}
+\addtolength{\belowdisplayskip}{-1ex}
+\addtolength{\belowdisplayshortskip}{-1ex}
+}
+% Kilka przydatnych definicji
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcommand{\razy}{\hspace{-0.5ex}\times\hspace{-0.5ex}} % mo¿e siê przydaæ
+
+
+\begin{document}
+
+\def\tablename{Tabela} % bez tej linii nazw¹ tabeli by³aby "Tablica"
+
+
+\noindent
+\textbf{Andrii Voznesenskyi, 323538, grupa 2, projekt 1, zadanie 45}
+
+
+\section*{Wstęp} % section* oznacza rozdzia³ bez numeru (zasadne przy braku spisu treci)
+Tematem wykonanego zadania laboratorium projektowego 1 jest obliczanie całek w dwóch wymiarach przez transformację obszaru całkowania zdefiniowanego przez koło jednostkowe następującej postaci:
+$\underset{D}{\iint} f(x,y)dxdy$
+, gdzie 
+$D = \{ (x,y)\in \mathbb{R} : x^2 + y^2 \leq 1\}$
+%$\iint\limits_a f(x,y) dxdy$
+na kwadrat $[-1,1]  \times [-1,1]$ i zastosowanie złożonych kwadratur trapezów ze względu na każdą zmienną. W związku z koniecznością wykorzystania transformacji były zastosowane odwzorowania: rozciąganie promieniowe oraz przekształcenie kwadratokręgu Fernandez-Guastiu. 
+
+Biorąc pod uwagę znane fakty oraz twierdzenie, a mianowicie wiemy, że błąd globalny złożonej kwadratury trapezów, wykorzystanej dla przybliżenia całki funkcji $f: \mathbb{R}^2 \xrightarrow{} \mathbb{R}$, jest rzędu $O(N^{-2})$, gdzie $N$ - liczba podziałów przedziałów w każdym wymiarze, twierdzenie o zamianie zmiennych w całce podwójnej dla funkcji dwch zmiennych oraz fakt, że warto stosować odpowiednio gładkie przekształcenia, których jakobian jest odpowiednio gładki według zależności własności kwadratury od liczby pochodnych cząstkowych funkcji w badanym punkcie. 
+
+Otrzymane wyniki pokazują, że błędy uzyskanych przybliżeń wartości całek dla funkcji są zależne od błędu lokalnego stosowanej metody, który jest rzędu $O(N^{-4})$ i od gładkości funkcji przekształcających obszar całkowania w punktach blizkich do wartości $0$ jej dziedziny.
+\section*{Opis złożonej metody trapezów oraz przekształceń obszaru całkowania}
+
+
+Niech $f : [a,b]  \times [c,d]  \xrightarrow{} \mathbb{R}$ będzie pewną funkcją ciągłą i całkowalną i $[a,b]  \times [c,d] $ będzie obszarem regularnym. Przybliżmy wartość całki:
+\noindent\begin{equation}
+\int_{c}^{d} \int_{a}^{b}f(x,y) \,dx\,dy
+\end{equation}
+\paragraph{ } Niech $f_1 : [a,b] \xrightarrow{} \mathbb{R}$, $f_2 : [c,d] \xrightarrow{} \mathbb{R}$ będą funkcjami ciągłymi i całkowalnymi na przedziałach swojej dziedziny. Złożone wzory trapezów na przedziałach $[a,b]$ i $[c,d]$, które oznaczmy odpowiednio $S_1$ i $S_2$ dla przybliżenia wartości całek funkcji $f_1$ i $f_2$, mają następujące postaci:
+\noindent\begin{equation}
+S_1(f) = \frac{H_1}{2}(f_1(a) + f_1(b) + 2\sum_{i=1}^{n-1} f_1(a+iH_1)),  
+S_2(f) = \frac{H_2}{2}(f_2(c) + f_2(d) + 2\sum_{i=1}^{m-1} f_2(c+iH_2)) 
+\end{equation}
+, gdzie $H_1 = \frac{b-a}{n}$ $H_2 = \frac{d-c}{m}$, n,m - liczby podziałów przedziałów $[a,b]$ i $[c,d]$ odpowiednio.
+
+Przyjmijmy oznaczenia, że niech dokładna wartość całki $(1)$ dla funkcji f jest równa $I(f)$. Dla przybliżenia wartości całki $(1)$ zastosujemy najpierw kwadraturę $S_1$ ze względu na zmienną $x$ oraz kwadraturę $S_2$ ze względu  na zmienną $y$ ze wzorów $(2)$ i otrzymamy:
+
+%\begin{equation}
+%\begin{split}
+\noindent\begin{gather}
+I(f) \approx S(F) = \frac{H_1 H_2}{2}  \biggr[ f(a,c) + f(b,c) + f(a,d) + f(b,d) + 2\biggl(\sum_{i=1}^{n-1} f(a+iH_1,c) + \nonumber\\[1ex] + \sum_{i=1}^{n-1} f(a+iH_1,d) +  \sum_{j=1}^{m-1} f(a,c + jH_2) + 
+ \sum_{j=1}^{m-1} f(b,c + jH_2)\biggl) + 4\sum_{i=1}^{n-1}\sum_{j=1}^{m-1}f(a+iH_1,c + jH_2)\biggr]\nonumber\
+\end{gather}
+%\end{split}
+%\end{equation}
+\paragraph{ } Zakładamy, że przekształcenie $F_i = (\varphi_i(u, v), \psi_i(u, v))$ odwzorowuje różnowartościowo  wnętrze $R$ na $\Delta$ oraz jakobian funkcji $\varphi_i, \psi_i$ $\mathbb{J_T}(\varphi(u, v), \psi(u, v)) \neq 0$. Wtedy z twierdzenia o zamianie zmiennych w całce podwójnej mamy:
+\begin{equation}
+\underset{R}{\iint} f(x,y)dx dy = \underset{\Delta}{\iint} f(\varphi_i(u, v), \psi_i(u, v))\lvert \mathbb{J_T}(\varphi_i(u, v), \psi_i(u, v))\lvert dudv \nonumber\\[1ex]
+\end{equation}
+, gdzie $D = \{ (x,y)\in \mathbb{R}^2 : x^2 + y^2 \leq 1\}$, a $\Delta = \{ (x,y)\in \mathbb{R}^2 : (x,y) \in [-1,1]\times[-1,1]\}$ 
+\begin{multicols}{2}
+\section*{Przekształcenie $F_1$}
+Zdefiniujmy przekształcenie "Rozciągnięcie promieniowe":
+\begin{gather}
+f(x,y) = F_1 (u,v) =f(\phi_1(u,v), \psi_1(u,v)) \nonumber\\
+\mathbb{J_T}(\varphi_i(u, v), \psi_i(u, v)) = \frac{max(u^2, v^2)}{u^2 + v^2} \nonumber\\[1ex](x,y) = \frac{\sqrt{u^2 + v^2}}{\max{|u|,|v|}}(u,v) 
+\end{gather}
+\columnbreak
+\section*{Przekształcenie $F_2$}
+Zdefiniujmy przekształcenie kwadratokręgu  Fernandez-Guastiu:
+\begin{gather}
+f(x,y) = F_2 (u,v) =f(\phi_2(u,v), \psi_2(u,v)) \nonumber\\
+s = \frac{sgn(uv)}{\sqrt{2|u||v|}} \sqrt{u^2 + v^2 - L \nonumber\\[1ex]
+L = \sqrt{(u^2+v^2)(u^2 + v^2 - 4u^2 v^2)}} \nonumber\\[1ex]
+\mathbb{J_T}(\varphi(u, v), \psi(u, v)) = {1 - \frac{2u^2v^2}{u^2+v^2}}\nonumber\\[1ex](x,y) = (\frac{1}{u}s,\frac{1}{v}s)(u,v)
+\end{gather}
+\end{multicols}
+%odwzorowuje różnowartościowo wnętrze obszaru regularnego \Delta na wnętrze obszaru regularnego D, gdzie
+%funkcje $\varphi, \psi$ mają ciągłe pochodne cząstkowe rzędu pierwszego na pewnym zbiorze otwartym zawierającym obszar $\Delta$ oraz ich jakobian $\mathbb{J_T} \neq 0$ wewnątrz tego obszaru. Niech ponadto funkcja f będzie ciągła naobszarze D. Wtedy
+
+\section*{Eksperymenty numeryczne}
+\paragraph{ } Dla wybranych przekształceń $F_1$ i $F_2$ oraz podanych funkcji $f_i : \mathbb{R}^2 \xrightarrow{} \mathbb{R}$, $i \in \{1, 2, ..., 5\}$ były porównane przybliżone wartości całek podwójnych, uzyskane ze złożonych wzorów trapezów dla różnych liczb podprzedziałów względem pierwszej i drugiej zmiennej. Wyniki eksperymentów dla wybranych funkcji są przedstawione w tabeli 1. Liczby podziałów dla  przybliżenia wyrażenia (1) były różne dla badania jednej funkcji i równe w każdym eksperymencie.
+
+Ogromny poziom ciekawości wywołują wyniki uzyskane dla funkcji $f_2(x,y) = x^2$ oraz $f_3(x,y) = x^2 + y^2$ w związku z tym że są one raczej bliskie do wyniku uzyskanego przy przybliżeniu wartości całki podwójnej funkcji $f_3$ bezpośrednio całkując na kwadracie, w przypadku przekształceń $F_1$$(3)$ i $F_2$$(4)$.  Możliwie, że różnica taka jest związana z kształtem funkcji kwadratowych na przedziale [-1,1] i stopniem gładkości jakobianów obu przekształceń wewnątrz obszaru całkowania w przypadku dzielenia przez bliskie do zera liczby. 
+
+Według wyników w tabeli 1 można zauważyć, że przekształcenie koła $F_2$(2) jest lepsze względem wartości błędów bezwzględnych i w związku z tym jakości przybliżenia wartości całki podwójnej.
+\begin{table}[!h]\vspace*{-2ex}
+\caption{\footnotesize $I$ - dokładna wartość wyrażenia (1), przy $a = -1, b = 1, c = -\sqrt{1 - x^2}, d  = \sqrt{1 - x^2} $ dla funkcji $f_i(x,y)$, $n,m$ - liczby podziałów przedziałów odpowiednio względem zmiennej $x$ oraz $y$, $S(F_1)$, $S(F_2)$ - przybliżone wartość całki podwójnej, obliczone ze złożonego wzoru trapezów względem każdej zmiennej funkcji $f_i$, dla której było zastosowane przekształcenie $F_1, F_2$ odpowiednio, $E(I,F_1)$, $E(I, F_2)$, $E(F_1,F_2)$ - wartości błędów bezwzględnych pomiędzy $F_1$ a $I$, $F_2$ a $I$, $F_1$ a $F_2$ odpowiednio.}\vspace{-1.5ex}
+\label{T1} % to niezbyt ³adna nazwa etykiety :(
+\begin{center}
+\begin{small}
+\begin{tabular}{|C{11ex}|C{6ex}|C{5ex}|C{5ex}|C{7ex}|C{10ex}|C{10ex}|C{10ex}|C{14ex}|}\hline
+Funkcja $f_i$ & $I$ & $n$ & $m$ & $S(F_1)$ & $S(F_2)$ & $E(I,F_1)$ & $E(I,F_2)$ & $E(F_1, F_2)$\\\hline
+\multirow{3}{*}{$1$}
+& $\pi$ & $111$ & $111$ & $3.14088$ & $3.14153$ & $7.09465\razy10^{-4}$ & $6.22777\razy10^{-5}$& $6.47188\razy10^{-4}$  \\
+& $\pi$ & $1115$ & $1159$ & $3.14159$ & $3.14159$ &$2.89111\razy10^{-6}$ &$5.93941\razy10{-7}$ & $2.29717\razy10^{-6} $\\\hline
+
+\multirow{2}{*}{$x^2$}
+& $\frac{\pi}{4}$ & $111$ & $111$ & $1.33355$ & $1.0717$ & $0.548152$ & $0.298761$& $0.249391$  \\
+& $\frac{\pi}{4}$ & $1115$ & $1159$ & $1.33334$ & $1.07157$ & $0.547937$ &$0.298649$ & $0.249288$\\\hline
+
+\multirow{2}{*}{$x^2 + y^2$}
+& $\frac{\pi}{2}$ & $111$ & $111$ & $2.6671$ & $2.14339$ & $1.0963$ & $0.597521$& $0.498782$  \\
+& $\frac{\pi}{2}$ & $1115$ & $1159$ & $2.66667$ & $2.14314$ &$1.09587$ &$0.597298$ & $0.498576$\\\hline
+\multirow{2}{*}{$e^x + e^y$}
+& $7.102$ & $111$ & $111$ & $7.71178$ & $7.41728$ & $0.60978$ & $0.33136$& $0.278424$  \\
+& $7.102$ & $1115$ & $1159$ & $7.71293$ & $7.41725$ &$0.610932$ &$0.331332$ & $0.2796$\\\hline
+\multirow{2}{*}{$sin^2(x)+1 $}
+& $3.8065$ & $111$ & $111$ & $4.1493$ & $3.99283$ & $0.342834$ & $0.18953$& $0.153303$  \\
+& $3.8065$ & $1115$ & $1159$ & $4.14994$ & $3.99287$ &$0.343473$ &$0.189576$ & $0.153897 $\\\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{table}\vspace{-3ex}
+
+%\section*{Dodatek}
+
+
+\end{document}
