@@ -1,0 +1,5 @@
+Funkcja test_doubletrap_order ma na celu ocenę własności zbieżności złożonej metody trapezów do przybliżania podwójnych całek.
+Jako funkcję testową wybrano następujące funkcje:
+#1 := f(x, y) = sin(x) * cos(y), #2 := f(x, y) = x^2 + y^2), #3 := f(x, y) = exp(-x.^2-y.^2), wartość całki podwójnej z których dla przedziałów całkowania [-8/9, 5/6] oraz [-8/9, 5/6] odpowiednio dla pierwszej i dla drugiej zmiennej wynoszą -0.0639, 128/9, 1.89345.
+Test zaczyna się od 10 podziałów i sukcesywnie podwaja ich liczbę. Celem jest sprawdzenie, jak szybko błąd przybliżenia całki podwójnej maleje wraz ze zwiększaniem liczby podziałów przedziału całkowania. Metoda trapezów jest metodą drugiego rzędu, co oznacza, że błąd powinien teoretycznie zmniejszać się proporcjonalnie do kwadratu długości kroku siatki (h^2).
+Wartość rate (wartość rzędu metody) jest obliczana jako logarytm przy podstawie 2 z ilorazu dwóch kolejnych błędów. Jeśli metoda ma rząd k, to przy podwojeniu liczby podziałów (zwiększeniu rozdzielczości siatki) błąd powinien teoretycznie zmniejszyć się 2^k razy.

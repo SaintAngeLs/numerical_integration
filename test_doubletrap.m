@@ -43,7 +43,7 @@ c = 0; d = 2;
         fprintf(header);
         line_count = line_count + 1;
 
-        tableHeader = ' n     m    Expected   Actual    Rel Error   Error Est   Comp Time   Num Eval   Max F    Min F   Grid Size\n';
+        tableHeader = ' n     m    Expected   Actual    Rel Error   Error Est   Comp Time   Num Eval   Max F    Min F  \n';
         fprintf(tableHeader);
         line_count = line_count + 1;
 
@@ -65,8 +65,8 @@ c = 0; d = 2;
                 fyy_values = Fpp_y(X, Y);
                 theoretical_error = abs(-(b-a)^3/(12*n^2)*max(fxx_values(:)) - (d-c)^3/(12*m^2)*max(fyy_values(:)));
 
-                 fprintf('%-6d %-6d %-10.4f %-10.4f %-12.8f %-8.8f %-10.4f %-10d  %-10.4f %-10.4f %-10s\n', ...
-                n, m, expected, actual, relative_error, theoretical_error, computation_time, num_evaluations, max_f, min_f, mat2str(grid_size));
+                 fprintf('%-6d %-6d %-10.4f %-10.4f %-12.8f %-8.8f %-10.4f %-10d  %-10.4f %-10.4f \n', ...
+                n, m, expected, actual, relative_error, theoretical_error, computation_time, num_evaluations, max_f, min_f);
             
                 line_count = line_count + 1;
                 pauseEveryNLines(line_count, 15);

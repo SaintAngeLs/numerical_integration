@@ -3,8 +3,7 @@ function pauseEveryNLines(lineCount, nlines)
 % Andrii Voznesenskyi, 323538
 %
 
-
 if mod(lineCount, nlines) == 0
-    input('Press Enter to continue... \n', 's');
+    input('...\nPress Enter to continue... \n', 's');
 end
 end % function 

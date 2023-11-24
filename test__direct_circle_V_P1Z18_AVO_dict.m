@@ -28,8 +28,7 @@ function test__direct_circle_V_P1Z18_AVO_dict()
         fprintf(' n     m      Approx. Value     Exact Value   Absolute Error   Time (sec)\n');
         fprintf('-----------------------------------------------------------------------\n');
         lineCounter = lineCounter + 3;
-       
-        
+      
         for n = [400, 800, 10000]
             for m = [400, 800, 10000]
                 tic;  % Start the timer

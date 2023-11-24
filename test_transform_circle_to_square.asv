@@ -1,0 +1,31 @@
+function test_transform_circle_to_square()
+    % Generate a grid of points on the unit circle
+    theta = linspace(0, 2*pi, 100);
+    u = cos(theta);
+    v = sin(theta);
+
+    % Perform the transformation from circle to square
+    [x, y] = transform_circle_to_square2(u, v, 1);
+
+    % Now perform the inverse transformation (square to circle)
+    u_recovered = x .* sqrt((1 - y.^2) ./ (1 - x.^2.*y.^2));
+    v_recovered = y .* sqrt((1 - x.^2) ./ (1 - x.^2.*y.^2));
+
+    % Calculate the error between the original and recovered points
+    error_u = max(abs(u - u_recovered));
+    error_v = max(abs(v - v_recovered));
+
+    % Display the maximum error
+    fprintf('Maximum error in u: %g\n', error_u);
+    fprintf('Maximum error in v: %g\n', error_v);
+
+    % A small threshold to determine if the transformation is accurate
+    threshold = 1e-10;
+
+    % Check if the transformation is successful
+    if error_u < threshold && error_v < threshold
+        disp('Transformation test passed successfully.');
+    else
+        disp('Transformation test failed.');
+    end
+end

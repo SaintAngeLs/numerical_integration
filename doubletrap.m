@@ -30,72 +30,60 @@ function [St, error_estimate, computation_time, num_evaluations, max_f, min_f, g
 %                      F dla środka obszaru całkowania pomnożoną przez rozmiar 
 %                      obszaru.
 
-    % Przypadek: n = m = 0
-    fpp_provided = ~isempty(Fpp);
+% Przypadek: n = m = 0
+fpp_provided = ~isempty(Fpp);
 
-    if n == 0 && m == 0
-        St = F((a+b)/2, (c+d)/2) * (b-a) * (d-c);
-        return
-    end
-
-    tic; % Start timing the computation
-
-    % Calculate the integration step
-    hx = (b - a) / n;
-    hy = (d - c) / m;
-
-    % Create the grid points for calculations
-    [X, Y] = meshgrid(a:hx:b, c:hy:d);
-
-    % Evaluate the function at the grid points
-    W = F(X, Y);
-    num_evaluations = numel(W); % Update the counter
-
-    % Apply the composite trapezoidal rule
-    W(1,:) = W(1,:) / 2;
-    W(end,:) = W(end,:) / 2;
-    W(:,1) = W(:,1) / 2;
-    W(:,end) = W(:,end) / 2;
-
-    % Sum the results and scale
-    St = sum(W(:)) * hx * hy;
-
-    if fpp_provided
-        % Calculate error estimate based on second derivatives
-        Fpp_x = Fpp{1}; % Extract the handle for the second derivative w.r.t. x
-        Fpp_y = Fpp{2}; % Extract the handle for the second derivative w.r.t. y
-
-        max_second_derivative_x = max(max(abs(Fpp_x(X, Y))));
-        max_second_derivative_y = max(max(abs(Fpp_y(X, Y))));
-
-        % Estimate the error for the trapezoidal rule based on the second derivatives
-        error_estimate_x = -((b - a)^3 / (12 * n^2)) * max_second_derivative_x;
-        error_estimate_y = -((d - c)^3 / (12 * m^2)) * max_second_derivative_y;
-        error_estimate = sqrt(error_estimate_x^2 + error_estimate_y^2);
-    else
-        % Return placeholder for error estimate if fpp is not provided
-        error_estimate = '-';
-    end
-%     % Theoretical error estimate based on the second derivatives
-%     Fpp_x = Fpp{1}; % Extract the handle for the second derivative w.r.t. x
-%     Fpp_y = Fpp{2}; % Extract the handle for the second derivative w.r.t. y
-% 
-%     max_second_derivative_x = max(max(abs(Fpp_x(X, Y))));
-%     max_second_derivative_y = max(max(abs(Fpp_y(X, Y))));
-% 
-%     % Estimate the error for the trapezoidal rule based on the second derivatives
-%     error_estimate_x = -((b - a)^3 / (12 * n^2)) * max_second_derivative_x;
-%     error_estimate_y = -((d - c)^3 / (12 * m^2)) * max_second_derivative_y;
-%     error_estimate = sqrt(error_estimate_x^2 + error_estimate_y^2);
-
-
-    % Find the maximum and minimum function values
-    max_f = max(W(:));
-    min_f = min(W(:));
-
-    % Computation time
-    computation_time = toc;
-
-    % Grid size
-    grid_size = [n, m];
+if n == 0 && m == 0
+    St = F((a+b)/2, (c+d)/2) * (b-a) * (d-c);
+    return
 end
+
+tic; % Start timing the computation
+
+% Calculate the integration step
+hx = (b - a) / n;
+hy = (d - c) / m;
+
+% Create the grid points for calculations
+[X, Y] = meshgrid(a:hx:b, c:hy:d);
+
+% Evaluate the function at the grid points
+W = F(X, Y);
+num_evaluations = numel(W); % Update the counter
+
+% Apply the composite trapezoidal rule
+W(1,:) = W(1,:) / 2;
+W(end,:) = W(end,:) / 2;
+W(:,1) = W(:,1) / 2;
+W(:,end) = W(:,end) / 2;
+
+% Sum the results and scale
+St = sum(W(:)) * hx * hy;
+
+if fpp_provided
+    % Calculate error estimate based on second derivatives
+    Fpp_x = Fpp{1}; % Extract the handle for the second derivative w.r.t. x
+    Fpp_y = Fpp{2}; % Extract the handle for the second derivative w.r.t. y
+
+    max_second_derivative_x = max(max(abs(Fpp_x(X, Y))));
+    max_second_derivative_y = max(max(abs(Fpp_y(X, Y))));
+
+    % Estimate the error for the trapezoidal rule based on the second derivatives
+    error_estimate_x = -((b - a)^3 / (12 * n^2)) * max_second_derivative_x;
+    error_estimate_y = -((d - c)^3 / (12 * m^2)) * max_second_derivative_y;
+    error_estimate = sqrt(error_estimate_x^2 + error_estimate_y^2);
+else
+    % Return placeholder for error estimate if fpp is not provided
+    error_estimate = '-';
+end
+
+% Find the maximum and minimum function values
+max_f = max(W(:));
+min_f = min(W(:));
+
+% Computation time
+computation_time = toc;
+
+% Grid size
+grid_size = [n, m];
+end % function

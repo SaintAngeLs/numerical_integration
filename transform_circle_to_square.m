@@ -1,14 +1,14 @@
-function [x, y] = transform_circle_to_square(u, v)
+function [x, y] = transform_circle_to_square(u, v, r)
 
-x = 0.5 * (u + 1) .* cos(pi * (v + 1));
-    y = 0.5 * (u + 1) .* sin(pi * (v + 1));
+% x = 0.5 * (u + 1) .* cos(pi * (v + 1));
+%     y = 0.5 * (u + 1) .* sin(pi * (v + 1));
     % Circle-to-square transformation function
     % Assumes (u, v) are coordinates within a unit circle (u^2 + v^2 <= 1)
 
     % Check if the points are inside the circle
-    if any(u.^2 + v.^2 > 1)
-        error('All points must be inside the unit circle.');
-    end
+%     if any(u.^2 + v.^2 > 1)
+%         error('All points must be inside the unit circle.');
+%     end
 
     % Calculate theta and r from the input coordinates
     theta = atan2(v, u);

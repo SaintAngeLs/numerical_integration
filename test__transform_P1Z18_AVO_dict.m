@@ -12,7 +12,6 @@ function test__transform_P1Z18_AVO_dict()
     R = 1; % Radius of the unit circle
     lineCounter = 0;
 
-
     fprintf("This function tests the numerical integration over a unit circle with transformation to square \n for various functions. \n")
     fprintf("It compares the approximate values obtained from the numerical method against known \nexact values, \n")
     fprintf("outputs the absolute error, and measures the computation time for each test case. \n")
