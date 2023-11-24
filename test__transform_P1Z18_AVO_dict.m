@@ -31,7 +31,7 @@ function test__transform_P1Z18_AVO_dict()
         
         for n = [400, 800, 10000]
             for m = [400, 800, 10000]
-                [St1, error_estimate, elapsedTime, ~, ~, ~, ~] = transform_P1Z18_AVO_dict(f, fpp, n, m, R);
+                [St1, error_estimate, elapsedTime, ~, ~, ~, ~] = transform_P1Z18_AVO_dict(f, [], n, m, R, 3);
 
                 
                 absErr = abs(exactVal - St1)/abs(exactVal);

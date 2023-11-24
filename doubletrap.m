@@ -74,7 +74,7 @@ if fpp_provided
     error_estimate = sqrt(error_estimate_x^2 + error_estimate_y^2);
 else
     % Return placeholder for error estimate if fpp is not provided
-    error_estimate = '-';
+    error_estimate = [];
 end
 
 % Find the maximum and minimum function values

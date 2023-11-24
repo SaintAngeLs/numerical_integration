@@ -1,4 +1,4 @@
-function [St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = transform_P1Z18_AVO_dict(f, fpp, n, m, r)
+function [St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = transform_P1Z18_AVO_dict(f, fpp, n, m, r, tr_method)
 % Project 1, zadanie 18
 % Andrii Voznesenskyi, 323538
 %
@@ -9,7 +9,7 @@ function [St, error_estimate, computation_time, num_evaluations, max_f, min_f, g
 % Wejście:
 %   f   -   uchwyt do funkcji dwuwymiarowej, przybliżona wartość całki
 %           podwójnej której jest obliczona
-%  fpp  -   uchwyt do funkcji będącej drugą pochodną f 
+%  fpp  -   uchwyt do funkcji będącej drugą pochodną f lub []
 %   n   -   liczba podziałów przedziału całkowania względem pierwszej 
 %           zmiennej
 %   m   -   liczba podziałów przedziału całkowania względem drugiej 
@@ -32,5 +32,5 @@ if n == 0 || m == 0
         error('n and m must be greater than 0');
 end
 
-[St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = doubletrap(@(u, v) transformed_function(u, v, f, r), fpp, n, m, -1, 1, -1, 1);
+[St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = doubletrap(@(u, v) transformed_function(u, v, f, r, tr_method), fpp, n, m, -1, 1, -1, 1);
 end % function

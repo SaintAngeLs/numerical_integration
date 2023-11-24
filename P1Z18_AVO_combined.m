@@ -5,8 +5,7 @@ function [  ...
             num_evaluations, ...
             max_f, ...
             min_f, ...
-            grid_size, ...
-            points_inside...
+            grid_size ...
          ] = P1Z18_AVO_combined(f, fpp, n, m, r, method, tr_method)
 % Project 1, zadanie 18
 % Andrii Voznesenskyi, 323538
@@ -31,14 +30,14 @@ function [  ...
 %   fpp     - uchwyt do wektora funkcji będących drugimi pochodnymi f, 
 %             fpp := [\frac{df}{dx}\frac{df}{dx}, 
 %                     \frac{df}{dy}\frac{df}{dy}]
-%             W pzypadku, gdy drugie pochodne nie są znane, czy nie zakłada
-%             się ich podawanie, parametr ten przyjmuje wartość []
+%             lub fpp := [] , gdy drugie pochodne nie są znane, czy nie
+%             zakłada się ich podanie
 %   n, m    - liczba podziałów przedziałów całkowania dla pierwszej i 
 %             drugiej zmiennej (domyślnie n = 1000, m = 1000)
 %   r       - promień okręgu definiującego obszar całkowania D
 %             (domyślnie 1)
 %   method  - łańcuch znaków lub liczba wskazująca wybraną metodę:
-%             'transform' lub 'circle' (domyślnie 'transform'), gdzie:
+%             'transform' (domyślnie 'transform'), gdzie:
 %             'transform' - metoda wykorzystująca transformację obszaru 
 %                           całkowania (koła o promieniu r) na kwadrat 
 %                           jednostkowy [-1, 1] x [-1, 1].
@@ -47,20 +46,7 @@ function [  ...
 %                           do przybliżenia wartości całki. Błąd 
 %                           teoretyczny tej metody zależy od drugiej 
 %                           pochodnej funkcji podcałkowej oraz gęstości 
-%                           siatki całkowania. Transformacja może 
-%                           wprowadzać dodatkowe błędy
-%                           związane z nieliniowością transformacji.
-%             'circle'    - metoda bezpośredniego całkowania na obszarze 
-%                           koła, która nie wymaga transformacji obszaru 
-%                           całkowania. Zamiast tego stosuje złożoną 
-%                           kwadraturę trapezów bezpośrednio na obszarze 
-%                           koła, co wymaga sprawdzania, czy poszczególne
-%                           punkty siatki całkowania znajdują się wewnątrz 
-%                           koła. Błąd obliczeniowy tej metody szacowany 
-%                           jest za pomocą  ekstrapolacji Richardsona, 
-%                           która porównuje wyniki przybliżenia na siatkach
-%                           o różnych gęstościach, to znaczy względem 
-%                           różnych wartości liczb podziału przedziałów.
+%                           siatki całkowania.
 %   tr_method        -  metoda do transformacji, przyjmuje parametry:
 %                       1, 2 lub 3. Przyjmuje domyślną wartość 2
 % Wyjście:
@@ -68,12 +54,9 @@ function [  ...
 %                      trapezów
 %   error_estimate   - Szacowany błąd obliczeniowy całki. Dla metody 
 %                      'transform' jest to teoretyczny błąd metody 
-%                      trapezów oparty na drugiej pochodnej funkcji. Dla 
-%                      metody 'circle' jest to wartość uzyskana z formuły 
-%                      ekstrapolacji Richardsona, która ocenia błąd 
-%                      przybliżenia poprzez porównanie wyników 
-%                      przybliżenia na dwóch różnych rozdzielczościach 
-%                      siatki.
+%                      trapezów oparty na drugiej pochodnej funkcji.
+%                      Jeśli 'fpp' := [] to error_estimate jest podany w
+%                      poastaci []
 %   computation_time - czas potrzebny do wykonania obliczeń
 %   num_evaluations  - liczba ewaluacji funkcji podcałkowej, odpowiadająca
 %                      liczbie punktów na siatce całkowania, przez które
@@ -113,18 +96,10 @@ end
 switch lower(method)
     case {'transform', 1} % Use the transformation method
         if fpp_provided
-            [St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = transform_P1Z18_AVO_dict(f, fpp, n, m, r);
+            [St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = transform_P1Z18_AVO_dict(f, fpp, n, m, r, tr_method);
         else
-            [St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = transform_P1Z18_AVO_dict_without_fpp(f, n, m, r);
+            [St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = transform_P1Z18_AVO_dict_without_fpp(f, n, m, r, tr_method);
         end
-        points_inside = NaN; % Not applicable for transform method
-        
-    case {'circle', 2} % Use the direct circle method
-        [St, error_estimate, points_inside, computation_time] = direct_circle_V_P1Z18_AVO_dict(f, n, m, r);
-        num_evaluations = NaN; % Not returned by doubletrap_circle
-        max_f = NaN; % Not returned by doubletrap_circle
-        min_f = NaN; % Not returned by doubletrap_circle
-        grid_size = [n, m]; % Assume the same grid size for both methods
         
     otherwise
         error('Unknown method. Use "transform" or "circle".');
