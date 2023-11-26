@@ -1,4 +1,4 @@
-function J = jacobian3(u, v, r)
+function J = jacobian_2(u, v, r)
 % Project 1, zadanie 18
 % Andrii Voznesenskyi, 323538
 

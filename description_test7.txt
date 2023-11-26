@@ -1,0 +1,5 @@
+Testing function is designed to evaluate the performance of the 'P1Z18_AVO_combined' -- main functional module responsible for the task solution, by comparison the evaluated results value for both transfomrations with the analitical value of the double integral calculated using the polar coordinates. 
+Functions used in test are f(x, y) = x^2 + y^2, f(x, y) = x*y, f(x, y) = exp(-x^2-y^2), for which the calues of the double integrals calculated with the domain transfomation are pi/2, 0 and pi*(1-exp(-1)) respectfully. Transformations from square to disc are:
+#1 := ( x = 0.5 * (u + 1) * cos(pi * (v + 1)); y = 0.5 * (u + 1) * sin(pi * (v + 1)) );
+#2 := ( x = u * sqrt(1 - v^2 / (2 * r^2)), y = v * sqrt(1 - u^2 / (2 * r^2)) );
+{{Approx. Value_1}, {Approx. Value_2}} are the values obtained after application the composite trapezoidal rule with transformation to square for the transformation #1 and #2 respectfully. {{Absolute Error_1},  {Absolute Error_2}} are the absolute errors according to the exact value (Exact Value) of the doble integral for the specific function for the transformation #1 and #2 respectfully.

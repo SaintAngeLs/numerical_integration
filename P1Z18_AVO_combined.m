@@ -28,6 +28,7 @@ function [  ...
 %             zdefiniowana do operacji na wektorach, z użyciem operatorów 
 %             element po elemencie (np. x.^2 zamiast x^2)
 %   fpp     - uchwyt do wektora funkcji będących drugimi pochodnymi f, 
+%             lub [], dokładniej: 
 %             fpp := [\frac{df}{dx}\frac{df}{dx}, 
 %                     \frac{df}{dy}\frac{df}{dy}]
 %             lub fpp := [] , gdy drugie pochodne nie są znane, czy nie
@@ -48,7 +49,7 @@ function [  ...
 %                           pochodnej funkcji podcałkowej oraz gęstości 
 %                           siatki całkowania.
 %   tr_method        -  metoda do transformacji, przyjmuje parametry:
-%                       1, 2 lub 3. Przyjmuje domyślną wartość 2
+%                       1 lub 2. Przyjmuje domyślną wartość 2
 % Wyjście:
 %   St               - przybliżona wartość całki podwójnej uzyskana metodą 
 %                      trapezów
@@ -65,10 +66,11 @@ function [  ...
 %                      na siatce całkowania
 %   grid_size        - rozmiar siatki użytej do obliczeń, zwracany jako 
 %                      wektor [n, m]
-%   points_inside    - liczba punktów siatki znajdujących się wewnątrz 
-%                      obszaru D (dotyczy tylko metody 'circle')
 
 % Set default parameter values if not provided
+if nargin < 7 || isempty(tr_method)
+    tr_method = 2; 
+end
 if nargin < 6 || isempty(method)
     method = 'transform';
 end
@@ -94,14 +96,32 @@ end
 
 % Decide which method to use based on the 'method' parameter
 switch lower(method)
-    case {'transform', 1} % Use the transformation method
+    % Use the transformation method
+    case {'transform', 1} 
         if fpp_provided
-            [St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = transform_P1Z18_AVO_dict(f, fpp, n, m, r, tr_method);
+            [
+                St,...
+                error_estimate,...
+                computation_time,...
+                num_evaluations,...
+                max_f,...
+                min_f,...
+                grid_size...
+             ] = transform_P1Z18_AVO_dict(f, fpp, n, m, r, tr_method);
         else
-            [St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = transform_P1Z18_AVO_dict_without_fpp(f, n, m, r, tr_method);
+            [
+                St,...
+                error_estimate,...
+                computation_time,...
+                num_evaluations,...
+                max_f,...
+                min_f,...
+                grid_size...
+            ] = transform_P1Z18_AVO_dict(f, [], n, m, r, tr_method);
         end
         
     otherwise
-        error('Unknown method. Use "transform" or "circle".');
+        error(['Unknown method for parameter 6 (method). \n' ...
+            'Use "transform" or other supported methods.']);
 end
-end
+end % function

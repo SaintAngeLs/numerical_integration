@@ -1,1 +1,5 @@
-The test4 function is designed to visually demonstrate and compare the  effects of a particular transformation on a set of points initially  distributed within a unit circle. The purpose of the function is to  validate and illustrate a transformation process that alters the  distribution of points while maintaining their collective form within  a circular domain.
+This test function for 'transform_circle_to_square_1' function -- functional module part of the 'transformed_function' responsible for performing transfomration of the domain from the circle to square using the transfomration x(u, v) = u .* sqrt(1 - v.^2 ./ (2 * r.^2)); y(u, v)  =  v .* sqrt(1 - u.^2 ./ (2 * r.^2));.
+This function demonstrates two transformations that convert a set of points from a square distribution to a circle distribution.  
+
+A total of num_points =: 100000  random points are generated within a unit square [-1, 1] x [-1, 1]  using the coordiantes (u, v), where  u = 2 * (rand(num_points, 1) - 0.5) (random x-coordinate in [-1,1)) v = 2 * (rand(num_points, 1) - 0.5); (random y-coordinate in [-1,1)). These points are then converted into Cartesian coordinates (x, y) before being transformed into a square distribution. The resulting distributions are plotted side by side for comparison.
+(After the transofmation happens, please, press 'Enter' 2 times to see the plot)

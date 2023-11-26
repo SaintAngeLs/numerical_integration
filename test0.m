@@ -15,14 +15,16 @@ pauseEveryNLines(lineCount, nlines)
 
 % Object of function F and its exact integral over the domain
 test_functions = {
-    {@(x, y) sin(x) .* cos(y), (sin(5/6) + sin(8/9))*(-cos(5/6) + cos(8/9))}
-    {@(x, y) x.^2 + y.^2, 231601/157464}
-    {@(x, y) exp(-x.^2-y.^2), 1/4 * pi * (erf(5/6) + erf(8/9))^2}
+    {@(x, y) sin(x) .* cos(y), (sin(5/6) + sin(8/9))*(-cos(5/6) + cos(8/9)), 'f(x, y) = sin(x)cos(y)', '(sin(5/6) + sin(8/9))*(-cos(5/6) + cos(8/9))'}
+    {@(x, y) x.^2 + y.^2, 231601/157464, 'f(x, y) = x^2 + y^2', '231601/157464'}
+    {@(x, y) exp(-x.^2-y.^2), 1/4 * pi * (erf(5/6) + erf(8/9))^2, 'f(x, y) = exp(-x^2-y^2)', '1/4 * pi * (erf(5/6) + erf(8/9))^2'}
 };
 
 for func_index = 1:length(test_functions)
     F = test_functions{func_index}{1};
     F_exact = test_functions{func_index}{2};
+    F_str = test_functions{func_index}{3};
+    F_int_val = test_functions{func_index}{4};
     % Set the limits of integration
     a = -8/9; b = 5/6; c = -8/9; d = 5/6;
     %F_exact = integral2(F, a, b, c, d);
@@ -37,8 +39,11 @@ for func_index = 1:length(test_functions)
 
     % Initialize array to store errors
     errors = zeros(size(n_values));
-    fprintf('Testing function #%d\n', func_index);
-    fprintf(' n\t m\t\t Error\t\t\t Rate\n');
+    fprintf('-------------------------------------------\n');
+    fprintf('Funkcja testowa: %s\n', F_str);
+    fprintf('Dokładna wartość całki: %s\n', F_int_val);
+    fprintf('-------------------------------------------\n');
+    fprintf(' n\t\t m\t\t Error\t\t\tRate\n');
     fprintf('-------------------------------------------\n');
     % Loop over different grid refinements
     for i = 1:length(n_values)
@@ -53,10 +58,10 @@ for func_index = 1:length(test_functions)
     
         % Display the results
         if i == 1
-            fprintf('%2d\t %2d\t    %1.4e\t\t   -\n', n, m, error);
+            fprintf('%4d   %4d     %1.4e     -\n', n, m, error);
         else
             rate = -log2(errors(i)/errors(i-1));
-            fprintf('%2d\t %2d     %1.4e\t     %1.2f\n', n, m, error, rate);
+            fprintf('%4d   %4d     %1.4e    %1.2f\n', n, m, error, rate);
         end
 
     end

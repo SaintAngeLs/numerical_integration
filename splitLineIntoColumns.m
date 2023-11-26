@@ -6,7 +6,8 @@ function formattedLine = splitLineIntoColumns(line, maxColumns)
     formattedLine = '';
     currentLineLength = 0;
     
-    % Loop over each word and build lines with a maximum of 'maxColumns' characters
+    % Loop over each word and build lines with a maximum of 'maxColumns' 
+    % characters
     for i = 1:length(words)
         word = words{i};
         if currentLineLength + length(word) + 1 <= maxColumns

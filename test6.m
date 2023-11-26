@@ -1,4 +1,4 @@
-function test5()
+function test6()
 % Funkcja test_doubletrap_order przeprowadza test zbieżności złożonej metody trapezów
 % dla przybliżania podwójnych całek. Celem jest sprawdzenie, jak szybko błąd przybliżenia
 % całki podwójnej maleje wraz ze zwiększaniem liczby podziałów przedziału całkowania.
@@ -8,7 +8,7 @@ function test5()
 nlines = 10;
 lineCount = 0;
 maxColumns = 74; 
-format_and_display_text('description_test5.txt', 74);
+format_and_display_text('description_test6.txt', 74);
 
 lineCount = lineCount + 10;
 pauseEveryNLines(lineCount, nlines)
@@ -48,7 +48,7 @@ for func_index = 1:length(test_functions)
         n = n_values(i);
         m = m_values(i);
         
-        [St, ~, ~, ~, ~, ~, ~] = P1Z18_AVO_combined(F, [], n, m, 1, 'transform', 1);
+        [St, ~, ~, ~, ~, ~, ~] = P1Z18_AVO_combined(F, [], n, m, 1, 'transform', 2);
         
         % Absolute error
         error = abs(F_exact - St);

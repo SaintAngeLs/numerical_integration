@@ -1,4 +1,12 @@
-function [St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = transform_P1Z18_AVO_dict(f, fpp, n, m, r, tr_method)
+function [...
+            St,...
+            error_estimate,...
+            computation_time,...
+            num_evaluations,...
+            max_f,...
+            min_f,...
+            grid_size...
+         ] = transform_P1Z18_AVO_dict(f, fpp, n, m, r, t_m)
 % Project 1, zadanie 18
 % Andrii Voznesenskyi, 323538
 %
@@ -16,6 +24,8 @@ function [St, error_estimate, computation_time, num_evaluations, max_f, min_f, g
 %           zmiennej 
 %   j   -   uchwyt do funkcji będącej, jakobian przekształcenia
 %   r   -   promień okręgu, który definiuje obszar
+%  t_m  -  metoda do transformacji, przyjmuje parametry:
+%          1 lub 2
 % Wyjście:
 %   St - przybliżona wartość całki podwójnej uzyskana za pomocą metody trapezów.
 %   error_estimate - szacunkowy błąd obliczeniowy całki.
@@ -32,5 +42,5 @@ if n == 0 || m == 0
         error('n and m must be greater than 0');
 end
 
-[St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = doubletrap(@(u, v) transformed_function(u, v, f, r, tr_method), fpp, n, m, -1, 1, -1, 1);
+[St, error_estimate, computation_time, num_evaluations, max_f, min_f, grid_size] = doubletrap(@(u, v) transformed_function(u, v, f, r, t_m), fpp, n, m, -1, 1, -1, 1);
 end % function
