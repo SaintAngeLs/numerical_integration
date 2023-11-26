@@ -1,5 +1,7 @@
 function test3()
-
+% Project 1, zadanie 18
+% Andrii Voznesenskyi, 323538
+%
     lineCount = 0;
     nlines = 10;
     format_and_display_text('description_test3.txt', 74);

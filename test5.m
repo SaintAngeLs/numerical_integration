@@ -1,4 +1,7 @@
 function test5()
+% Project 1, zadanie 18
+% Andrii Voznesenskyi, 323538
+%
 % Funkcja test_doubletrap_order przeprowadza test zbieżności złożonej metody trapezów
 % dla przybliżania podwójnych całek. Celem jest sprawdzenie, jak szybko błąd przybliżenia
 % całki podwójnej maleje wraz ze zwiększaniem liczby podziałów przedziału całkowania.

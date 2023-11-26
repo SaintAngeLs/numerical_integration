@@ -1,4 +1,7 @@
 function test4()
+% Project 1, zadanie 18
+% Andrii Voznesenskyi, 323538
+%
 
     lineCount = 0;
     nlines = 10;
@@ -11,8 +14,8 @@ function test4()
     u = 2 * (rand(num_points, 1) - 0.5); % Random x-coordinate in [-1,1)
     v = 2 * (rand(num_points, 1) - 0.5); % Random y-coordinate in [-1,1)
 
-    % Apply the inverse transformation from square to circle
-    [x1, y1] = transform_circle_to_square_2(u, v , 1);
+    % Apply the inverse transformation from square to circle with radius 1
+    [x1, y1] = transform_circle_to_square_2(u, v, 1);
     
     % Plotting the square domain and the transformation to the circular domain
     figure; % Create a new figure window

@@ -13,13 +13,13 @@ else
         case 1
             % Use the first transformation and Jacobian method
             [x, y] = transform_circle_to_square_1(u, v);
-            J = jacobian_1(u, v, r);
+            J = jacobian_1(u, v);
             val = f(x, y) .* abs(J);
             
         case 2
             % Use the third transformation and Jacobian method
             [x, y] = transform_circle_to_square_2(u, v, 1);
-            J = jacobian_2(u, v, r);
+            J = jacobian_2(u, v);
             val = f(x, y) .* abs(J);
 
         otherwise

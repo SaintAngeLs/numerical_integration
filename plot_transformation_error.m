@@ -1,4 +1,7 @@
 function plot_transformation_error()
+% Project 1, zadanie 18
+% Andrii Voznesenskyi, 323538
+%
 
     % This function visualizes the error in transforming a unit circle to a square.
     % It computes and plots the Jacobian of the transformation to identify areas
