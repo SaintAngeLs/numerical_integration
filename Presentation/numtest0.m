@@ -1,9 +1,9 @@
-function test7()
+function numtest0()
 % Project 1, zadanie 18
 % Andrii Voznesenskyi, 323538
 %
 
-format_and_display_text('description_test7.txt', 74);
+format_and_display_text('description_numtest0.txt', 74);
 
 nlines = 10;
 lineCount = 0;
@@ -15,6 +15,9 @@ funcs = {
     {@(x, y) x.^2 + y.^2, "x^2 + y^2", pi/2, {@(x,y) 2, @(x,y) 2}};
     {@(x, y) x.*y, "x*y", 0, {@(x,y) 0, @(x,y) 0}};
     {@(x, y) exp(-x.^2-y.^2), "e^{-x^2 - y^2}", pi*(1-exp(-1)), {@(x,y) exp(-x.^2-y.^2).*(4*x.^2-2), @(x,y) exp(-x.^2-y.^2).*(4*y.^2-2)}};
+    {@(x, y) sqrt(x.^2 + y.^2), "sqrt(x.^2 + y.^2)", 2*pi/3, 0, 0} 
+    {@(x, y) x.^4.*y.^2, " x^4 * y^2", pi/64, 0, 0}
+    {@(x, y) exp(x.^2 + y.^2), "exp(x.^2 + y.^2)",pi*(exp(1) - 1), 0, 0}
 };
 
 R = 1; % Radius of the unit circle
@@ -32,8 +35,8 @@ for k = 1:length(funcs)
     lineCount = lineCount + 3;
     
     
-    for n = [400, 800, 10000]
-        for m = [400, 800, 10000]
+    for n = [400, 800, 1000, 5000, 10000]
+        for m = [400, 800, 1000, 5000, 10000]
             [St1_1, ...
                 ~, ~, ~, ~, ~, ~ ...
             ] = P1Z18_AVO_combined(f, [], n, m, R, 'transform', 1);
@@ -43,10 +46,10 @@ for k = 1:length(funcs)
             
             absErr1 = abs(exactVal - St1_1);
             absErr2 = abs(exactVal - St1_2);
-            fprintf('%-6d %-6d | %-12f | %-12f | %-13f | %-13f | %-13f\n', n, m, St1_1, St1_2, exactVal, absErr1, absErr2);
+            fprintf('%-6d %-6d | %-12f | %-12f | %-13f | %-1.4e | %-1.4e\n', n, m, St1_1, St1_2, exactVal, absErr1, absErr2);
             
             lineCount = lineCount + 1;
-            pauseEveryNLines(lineCount, nlines + 1)
+            pauseEveryNLines(lineCount, nlines + 1);
         end
     end
     fprintf('\n');

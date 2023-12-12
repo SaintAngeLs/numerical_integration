@@ -47,14 +47,13 @@ function [  ...
 %                           do przybliżenia wartości całki.
 %   t_m     - metoda do transformacji, przyjmuje parametry: 1 lub 2. 
 %             Przyjmuje domyślną wartość 2. Dokładniej, przekształcenie 
-%             1 jest określone wykorzystaniem współżędnych x, y, gdzie:
+%             1 jest określone wykorzystaniem współżędnych:
 %                   x(u, v) = 0.5 * (u + 1) * cos(pi * (v + 1));
-%                   y(u, v) = 0.5 * (u + 1) * sin(pi * (v + 1)),
-%             przekształcenie 2 jest określone wykorzystaniem 
-%             współżędnych x, y, gdzie
+%                   y(u, v) = 0.5 * (u + 1) * sin(pi * (v + 1));
+%             przekształcenie 1 jest określone wykorzystaniem 
+%             współżędnych:
 %                   x(u, v) = u * sqrt(1 - v^2 / (2 * r^2));
-%                   y(u, v) = v * sqrt(1 - u^2 / (2 * r^2))
-%             u, v są współżędnymi w obszarze kwadratu.
+%                   y(u, v) = v * sqrt(1 - u^2 / (2 * r^2));
 % Wyjście:
 %   St               - przybliżona wartość całki podwójnej uzyskana metodą 
 %                      trapezów

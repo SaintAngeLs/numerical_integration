@@ -1,0 +1,7 @@
+Testing function is designed to provide the numerical test of the 'P1Z18_AVO_combined' -- main functional module responsible for the task solution, by comparison the evaluated results value for both transfomrations with the analitical value of the double integral calculated using the polar coordinates and plotting the absulte errors. 
+Functions used in test are f(x, y) = x^2 + y^2, f(x, y) = x*y, f(x, y) = exp(-x^2-y^2), f(x, y) = sqrt(x^2 + y^2), f(x, y) = x^4*y^2, f(x, y) = exp(x.^2 + y.^2), for which the values of the double integrals calculated with the domain transfomation are  pi/2, 0, pi*(1-exp(-1)), 2*pi/3, pi/64, pi*(exp(1) - 1) respectfully. Transformations from square to disc are:
+#1 := ( x = 0.5 * (u + 1) * cos(pi * (v + 1)); y = 0.5 * (u + 1) * sin(pi * (v + 1)) );
+#2 := ( x = u * sqrt(1 - v^2 / (2 * r^2)), y = v * sqrt(1 - u^2 / (2 * r^2)) );
+T_1 and T_2 are the absolute errors for approximate values of double integral of previously defined functions obtained with the transformation #1 and #2 respectfully.
+
+(After the transofmation happens, please, press 'Enter' 2 times to see the plots)
